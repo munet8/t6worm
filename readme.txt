@@ -5,19 +5,23 @@ Munet Worm
   ・http://linuxjm.sourceforge.jp/html/bsd-games/man6/worm.6.html
   ・我が青春。
 
+ライセンス
+
+  ・修正BSDライセンス http://www.freebsd.org/ja/copyright/freebsd-license.html に従います。
+
 必要環境
 
   ・Windows 32bit版 と思われます。
-  ・iOS、Android用にビルドする場合は入力I/F改変してね。
+  ・iOS、Android用にビルドしてもいけるらしい。
 
 開発環境
 
   ・HSP3Dish http://hsp.tv/ v3.31
   ・WinXP SP3
 
-ライセンス
-
-  ・修正BSDライセンス http://www.freebsd.org/ja/copyright/freebsd-license.html に従います。
+履歴
+  ・v1.0
+    初版。
 
 操作方法（ゲーム時）
 
