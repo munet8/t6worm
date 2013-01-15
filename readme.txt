@@ -20,6 +20,8 @@ Munet Worm
   ・WinXP SP3
 
 履歴
+  ・v1.1
+    tan6ブランドとして設定。
   ・v1.0
     初版。
 

@@ -1,7 +1,7 @@
 #include "hsp3dish.as"
-#include "muworm.as"
+#include "t6worm.as"
 
-title "munet worm"
+title "tan6 worm"
 
 ;-------------------------------------------------------------------------------
 ;
@@ -136,11 +136,25 @@ int_vanish = 255
 			int_length_add += int_feed_level
 			int_score += int_feed_level
 
-			do
-				int_feed_x = rnd(int_max_x - 2) + 1
-				int_feed_y = rnd(int_max_y - 2) + 1
-			until ( arr_field( int_feed_x, int_feed_y ) = 0 )
-			int_feed_level = rnd(9) + 1
+			; 実プレイでは問題ないと思うが空き地チェック
+			k = 0
+			for m, 0, int_max_x, 1
+				for n, 0, int_max_y, 1
+					if ( arr_field( m, n ) = 0 ) {
+						k = 1 :_break
+					}
+				next
+				if ( k ) :_break
+			next
+
+			; 空き地があるなら餌発生
+			if ( k ) {
+				do
+					int_feed_x = rnd(int_max_x - 2) + 1
+					int_feed_y = rnd(int_max_y - 2) + 1
+				until ( arr_field( int_feed_x, int_feed_y ) = 0 )
+				int_feed_level = rnd(9) + 1
+			}
 		}
 		arr_field( arr_worm_x(i), arr_worm_y(i) ) = j
 		i++
@@ -244,7 +258,7 @@ int_vanish = 255
 	pos 2 * g_font_x, 1 * g_font_y
 	fprint "Your score is " + int_score + ".", 255
 	pos 2 * g_font_x, 3 * g_font_y
-	fprint "munet worm｡", 255
+	fprint "tan6 worm｡", 255
 	pos 2 * g_font_x, 4 * g_font_y
 	fprint "2012(C) m-ushi", 255
 

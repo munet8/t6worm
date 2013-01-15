@@ -1,6 +1,6 @@
 ;-------------------------------------------------------------------------------
 ; コンパイルオプション
-#packopt name "muworm.exe"
+#packopt name "t6worm.exe"
 #packopt type 0
 #packopt xsize 320
 #packopt ysize 480
