@@ -1,0 +1,124 @@
+#include "hsp3util.as"
+
+; fon_char.bmp 作成
+
+	screen 0, 300, 300, 4
+
+	objsize 300, 24
+	font "メイリオ", 12
+	objmode 2, 1
+	font "メイリオ", 16
+	mes "ボタンクリックでプレビュー表示"
+	mes "さらにクリックでbmp生成して開く"
+	button goto "fon_cha1.bmp (アスキー)", *fon_cha1
+	button goto "fon_cha2.bmp (絵文字)",   *fon_cha2
+
+*startx
+	onclick *startx
+	gsel 0
+	stop
+
+; fon_cha1.png プレビュー
+*fon_cha1
+	; 定数
+	g_x = 16 :g_y = 32 ; フォントサイズ
+	g_a = 16 :g_b =  6 ; 画像数
+
+	; プレビュー表示
+	screen 1, g_x*g_a, g_y*g_b, 8
+	gosub *fon_cha1_draw
+
+	; 補助線
+	color 102,102,102
+	for i, 0, g_b, 1 :line     0, i*g_y, g_a*g_x,   i*g_y :next
+	for i, 0, g_a, 1 :line i*g_x,     0,   i*g_x, g_b*g_y :next
+
+	onclick *fon_cha1_save
+	stop
+
+; fon_cha1.png 保存
+*fon_cha1_save
+	gsel 1
+	gosub *fon_cha1_draw
+	bmpsave "fon_cha1.bmp"
+	exec "fon_cha1.bmp", 16, "edit"
+
+	gsel 1, -1
+	goto *startx
+
+; fon_cha2.png プレビュー
+*fon_cha2
+	; 定数
+	g_x = 32 :g_y = 32 ; フォントサイズ
+	g_a =  6 :g_b =  1 ; 画像数
+
+	; プレビュー表示
+	screen 1, g_x*g_a, g_y*g_b, 8
+	gosub *fon_cha2_draw
+
+	; 補助線
+	color 102,102,102
+	for i, 0, g_b, 1 :line     0, i*g_y, g_a*g_x,   i*g_y :next
+	for i, 0, g_a, 1 :line i*g_x,     0,   i*g_x, g_b*g_y :next
+
+	onclick *fon_cha2_save
+	stop
+
+; fon_cha2.png 保存
+*fon_cha2_save
+	gsel 1
+	gosub *fon_cha2_draw
+	bmpsave "fon_cha2.bmp"
+	exec "fon_cha2.bmp", 16, "edit"
+
+	gsel 1, -1
+	goto *startx
+
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+
+; fon_cha1.png 描画
+*fon_cha1_draw
+	color 0, 0, 0 :boxf
+	color 255, 255, 255
+	for j, 0, g_b, 1
+		for i, 0, g_a, 1
+			c = " "
+			n = j*16 + i + 32
+			poke c, 0, n
+			pos i*g_x+2, j*g_y-2
+			font "VL ゴシック",27
+			mes c
+		next
+	next
+
+	return
+
+; fon_cha2.png 描画
+*fon_cha2_draw
+	color 0, 0, 0 :boxf
+	j=0
+	for i, 0, g_a, 1
+		color 255, 255, 255
+		c=""
+		switch i
+		case 1
+			font "WebDings",34
+			c = "'"
+			pos i*g_x-2, j*g_y-1
+			swbreak
+		case 2
+			font "VL ゴシック",32
+			c = "←↓↑→"
+			pos i*g_x+1, j*g_y-4
+			swbreak
+		swend
+		mes c
+	next
+
+	; ドクロ用
+	pos 11*g_x, 0
+	gzoom g_x, g_y, 1, 11*g_x, 0, 22, 31, 1
+
+	return
