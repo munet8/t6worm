@@ -25,6 +25,10 @@ g_font_y = ginfo_winy / 20
 g_screen_x = ginfo_winx
 g_screen_y = ginfo_winy
 
+; ƒuƒ‰ƒ“ƒh–¼ tan6‹
+g_tan6 = "tan6 "
+poke g_tan6, 4, 127
+
 #module
 #defcfunc log10 int _x
 	; log10(x)

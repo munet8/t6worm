@@ -1,5 +1,8 @@
 #include "hsp3util.as"
 
+; imagemagickの場所
+g_imagemagick = "C:\\usr\\program\\imagemagick\\convert.exe"
+
 ; fon_char.bmp 作成
 
 	screen 0, 300, 300, 4
@@ -40,11 +43,9 @@
 *fon_cha1_save
 	gsel 1
 	gosub *fon_cha1_draw
-	bmpsave "fon_cha1.bmp"
-	exec "fon_cha1.bmp", 16, "edit"
 
-	gsel 1, -1
-	goto *startx
+	fname = "fon_cha1"
+	goto *fon_save_common
 
 ; fon_cha2.png プレビュー
 *fon_cha2
@@ -68,8 +69,17 @@
 *fon_cha2_save
 	gsel 1
 	gosub *fon_cha2_draw
-	bmpsave "fon_cha2.bmp"
-	exec "fon_cha2.bmp", 16, "edit"
+
+	fname = "fon_cha2"
+	goto *fon_save_common
+
+; 保存共通処理
+*fon_save_common
+	
+	bmpsave fname + ".bmp"
+	exec g_imagemagick + " -colors 256 " + fname + ".bmp " + fname + ".png"
+	wait 5
+	delete fname + ".bmp"
 
 	gsel 1, -1
 	goto *startx
@@ -87,7 +97,8 @@
 			c = " "
 			n = j*16 + i + 32
 			poke c, 0, n
-			pos i*g_x+2, j*g_y-2
+			if ( i = 15 ) & ( j = 5 ) :c = "ﾟ"
+			pos i*g_x+2, j*g_y+2
 			font "VL ゴシック",27
 			mes c
 		next
@@ -109,11 +120,29 @@
 			pos i*g_x-2, j*g_y-1
 			swbreak
 		case 2
-			font "VL ゴシック",32
-			c = "←↓↑→"
-			pos i*g_x+1, j*g_y-4
+			font "Symbol", 28
+			pos i*g_x+2, j*g_y-5
+			n = 172
+			poke c, 0, n
 			swbreak
-		swend
+		case 3
+			font "Symbol", 26
+			pos i*g_x+9, j*g_y+2
+			n = 175
+			poke c, 0, n
+			swbreak
+		case 4
+			font "Symbol", 26
+			pos i*g_x+9, j*g_y+2
+			n = 173
+			poke c, 0, n
+			swbreak
+		case 5
+			font "Symbol", 28
+			pos i*g_x+2, j*g_y-5
+			n = 174
+			poke c, 0, n
+			swbreak		swend
 		mes c
 	next
 
