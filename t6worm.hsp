@@ -38,8 +38,8 @@ str_arr_char(3) = "#"
 dim arr_worm_x, int_max_x * int_max_y
 dim arr_worm_y, int_max_x * int_max_y
 
-; 進行方向
-int_direction = 3
+; 進行方向。-1ならば停止
+int_direction = -1
 
 ; 虫の長さ
 int_length = 1
@@ -125,7 +125,7 @@ int_vanish = 255
 	while ( i < int_length )
 		if ( i = ( int_length - 1 ) ) :j = 2 :else :j = 1
 		; ゲームオーバー判定
-		if (( j = 2 ) & ( arr_field( arr_worm_x(i), arr_worm_y(i) ) & 1 )) {
+		if (( j = 2 ) & ( arr_field( arr_worm_x(i), arr_worm_y(i) ) & 1 ) & ( int_direction >= 0 )) {
 			goto *dead
 		}
 		; 餌食い判定
