@@ -11,11 +11,6 @@ title "tan6 worm"
 
 *first
 
-getreq int_os, SYSREQ_PLATFORM           ; OS識別
-flag_is_ios     = (int_os = 1)
-flag_is_android = (int_os = 2)
-flag_is_windows = (int_os = 0)
-
 ; フォント画像のロード（半角）
 celload "fon_cha1.png", 2
 celdiv 2, g_font_png_x, g_font_png_y, 0, 0
@@ -55,6 +50,9 @@ arr_worm_y(0) = int_max_y / 4
 ; 乱数初期化
 randomize
 
+; 画面クリア設定
+setcls CLSMODE_SOLID, 0
+
 ; 餌の場所
 int_feed_x = rnd(int_max_x - 2) + 1
 int_feed_y = rnd(int_max_y - 2) + 1
@@ -79,7 +77,6 @@ int_vanish = 255
 				int_new_direction = 4 * int_mousex / g_screen_x
 			}
 		}
-		if ( int_stk & 128 ) :gosub *exit
 		getkey int_gky, 37 :if ( int_gky ) :int_new_direction = 0
 		getkey int_gky, 40 :if ( int_gky ) :int_new_direction = 1
 		getkey int_gky, 38 :if ( int_gky ) :int_new_direction = 2
@@ -164,9 +161,6 @@ int_vanish = 255
 	redraw 0
 	gfilter 1
 
-	color 0, 0, 0
-	boxf 0, 0, g_screen_x, g_screen_y
-
 	for i, 0, int_max_x, 1
 		for j, 0, int_max_y, 1
 			pos i * g_font_x, j * g_font_y
@@ -195,9 +189,6 @@ int_vanish = 255
 *dead
 	redraw 0
 	gfilter 1
-
-	stick int_stk, 256
-	if ( int_stk & 128 ) :gosub *exit
 
 	; 描画
 	color int_vanish / 5, 0, 0
@@ -243,15 +234,11 @@ int_vanish = 255
 		int_mousex = mousex
 		int_mousey = mousey
 		if ( int_mousey >= ( int_max_y + 1 ) * g_font_y ) {
-			if ( int_mousex < ( g_screen_x / 2 )) {
-				goto *first
-			} else {
-				gosub *exit
-			}
+			goto *first
 		}
 	} else {
 		if ( int_stk ) {
-			if ( int_stk & 128 ) :gosub *exit :else :goto *first
+			goto *first
 		}
 	}
 
@@ -268,14 +255,9 @@ int_vanish = 255
 
 	color 255, 255, 255
 	line 0, ( int_max_y + 1 ) * g_font_y, g_screen_x, ( int_max_y + 1 ) * g_font_y
-	line g_screen_x / 2, ( int_max_y + 1 ) * g_font_y, g_screen_x / 2, g_screen_y
 
-	pos ( 1 * g_screen_x / 4 ) - ( 5 * g_font_x / 2 ), ( int_max_y + 1 ) * g_font_y
+	pos ( 2 * g_screen_x / 4 ) - ( 5 * g_font_x / 2 ), ( int_max_y + 1 ) * g_font_y
 	fprint "Retry", 255
-	if ( flag_is_ios ^ 1 ) {
-		pos ( 3 * g_screen_x / 4 ) - ( 2 * g_font_x ), ( int_max_y + 1 ) * g_font_y
-		fprint "Exit", 255
-	}
 
 	redraw 1
 	await 16
@@ -326,8 +308,4 @@ int_vanish = 255
 		if ( i = 3 ) :fprint "･", 255
 	next
 
-	return
-
-*exit
-	if ( flag_is_ios ^ 1 ) :end 0
 	return
