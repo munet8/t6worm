@@ -18,10 +18,14 @@ Munet Worm
 
 開発環境
 
-  ・HSP3Dish http://hsp.tv/ v3.32b2
-  ・WinXP SP3
+  ・HSP3Dish https://hsp.tv/ v3.6
+  ・Win11 22H2 64bit
 
 履歴
+  ・v1.2
+    いきなり始まらない様に修正。
+    ソフトウェアから終了させる意味がないため、本機能を削除。
+    久しぶりに触る前に画像に関する微修正をしたらしい。
   ・v1.1
     tan6ブランドとして設定。
   ・v1.0
@@ -35,18 +39,12 @@ Munet Worm
       それぞれ左、下、上、右に移動
   ・カーソルキー（Win32のみ）
       移動
-  ・Escキー（Win32のみ）
-      ゲームを終了
 
 操作方法（ゲームオーバー時）
 
   ・「Retry」
       再度ゲームをプレイ
-  ・「Exit」（ゲームオーバー時 && iOS以外）
-      ゲームを終了
-  ・Escキー（Win32のみ）
-      ゲームを終了
-  ・カーソル・スペース・Enter・Ctrl・右クリック・TAB（ゲームオーバー時 && Win32のみ）
+  ・カーソル・スペース・Enter・Ctrl・右クリック・TAB（Win32のみ）
       再度ゲームをプレイ
 
 遊び方
@@ -59,7 +57,8 @@ Munet Worm
 利用フォント
 
   ・VLゴシックフォントファミリ http://vlgothic.dicey.org/
-  ・Webdings http://www.microsoft.com/
+  ・Symbol https://www.adobe.com/
+  ・Webdings https://www.microsoft.com/
 
 修正BSDライセンス（英文）
 
