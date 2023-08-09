@@ -226,10 +226,6 @@ int_vanish = 255
 	redraw 0
 	gfilter 1
 
-	; •`‰æ
-	color 0, 0, 0
-	boxf 0, 0, g_screen_x, g_screen_y
-
 	stick int_stk, 0 :if ( int_stk & 256 ) {
 		int_mousex = mousex
 		int_mousey = mousey
